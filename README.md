@@ -7,7 +7,7 @@
 <p align="center">
   <a href="https://lng.ivaylokrastev.com"><img src="https://img.shields.io/badge/PWA-Ready-blue" alt="PWA" /></a>
   <a href="https://lng.ivaylokrastev.com"><img src="https://img.shields.io/badge/Offline-Ready-blue" alt="Offline" /></a>
-  <a href="https://lng.ivaylokrastev.com"><img src="https://img.shields.io/badge/Version-2.5.1-blue" alt="Version" /></a>
+  <a href="https://lng.ivaylokrastev.com"><img src="https://img.shields.io/badge/Version-2.5.2-blue" alt="Version" /></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/License-AGPL--3.0-blue" alt="License" /></a>
 </p>
 
@@ -183,6 +183,9 @@ The Methane Number calculation (introduced in v2.3.0) embeds a JavaScript implem
 ---
 
 ## Changelog
+
+### Version 2.5.2
+- Offline reliability fix.
 
 ### Version 2.5.1
 - Minor fixes and optimizations in the code and documentation.
