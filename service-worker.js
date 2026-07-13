@@ -1,12 +1,14 @@
 /*
- * Service Worker for LNG Cargo Properties Calculator PWA — v2.5.2
+ * Service Worker for LNG Cargo Properties Calculator PWA — v2.5.3
  *
  * Strategy:
- *   - Navigations (the app itself): NETWORK-FIRST with cache fallback.
- *     Online users always run the latest deployed version and the cache is
- *     refreshed on every successful load. Offline users get the cached copy.
- *     A navigation that misses the cache exactly falls back to ./index.html,
- *     so the app opens offline regardless of query strings or entry URL.
+ *   - Navigations (the app itself): STALE-WHILE-REVALIDATE. The cached app
+ *     is served instantly — startup speed is independent of connection
+ *     quality — while the latest deployed version is fetched in the
+ *     background and cached for the next launch. Network-first was tried in
+ *     v2.5.2 and reverted: on slow-but-alive connections (ship VSAT,
+ *     congested port Wi-Fi) fetch() hangs rather than fails, freezing the
+ *     app on the splash screen.
  *   - Static assets (icons, manifest, standalone file): CACHE-FIRST with
  *     runtime caching. These rarely change.
  *
@@ -20,10 +22,11 @@
  *
  * Versioning:
  *   Bump CACHE_NAME on each release so stale caches are purged on activate.
- *   Because navigations are network-first, users no longer run a stale
- *   index.html while online even if the bump is forgotten.
+ *   Because navigations revalidate in the background on every online launch,
+ *   users pick up a new index.html by their second online launch even if
+ *   the bump is forgotten.
  */
-const CACHE_NAME = 'lng-cargo-v2.5.2';
+const CACHE_NAME = 'lng-cargo-v2.5.3';
 
 /* Install fails (and retries next visit) if these cannot be cached. */
 const CRITICAL_ASSETS = [
@@ -97,25 +100,42 @@ self.addEventListener('fetch', (event) => {
   /* Same-origin only; let the browser handle anything external. */
   if (new URL(request.url).origin !== self.location.origin) return;
 
-  /* ── Navigations: network-first, cache fallback, index.html safety net ── */
+  /* ── Navigations: STALE-WHILE-REVALIDATE ──
+     Serve the cached app INSTANTLY (cache reads are milliseconds regardless
+     of connection quality), then fetch the latest version in the background
+     and update the cache for the next launch. This avoids the network-first
+     pitfall on slow-but-alive connections ("lie-fi"), where fetch() does not
+     fail — it hangs, holding the app on the splash screen for as long as the
+     browser is willing to wait. Tradeoff: after a redeploy, a device runs
+     the new version from its second online launch onward. */
   if (request.mode === 'navigate' || request.destination === 'document') {
-    event.respondWith(
-      fetch(request)
-        .then((response) => {
+    event.respondWith((async () => {
+      const cache = await caches.open(CACHE_NAME);
+      const cached = await cache.match(request, { ignoreSearch: true })
+                  || await cache.match('./index.html');
+
+      /* Background revalidation: refresh index.html and repair any cache
+         gaps. Never blocks the response below; failures are silent and
+         retried on the next launch. */
+      const revalidate = fetch(request)
+        .then(async (response) => {
           if (response && response.status === 200) {
-            const clone = response.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
-            /* We are demonstrably online: repair any gaps in the cache. */
-            event.waitUntil(backfillMissingAssets());
+            await cache.put(request, response.clone());
+            await backfillMissingAssets();
           }
           return response;
         })
-        .catch(() =>
-          caches.match(request, { ignoreSearch: true })
-            .then((cached) => cached || caches.match('./index.html'))
-            .then((cached) => cached || offlineFallbackPage())
-        )
-    );
+        .catch(() => undefined);
+
+      if (cached) {
+        event.waitUntil(revalidate);
+        return cached;
+      }
+
+      /* Nothing cached yet (first ever visit): must wait for the network. */
+      const fresh = await revalidate;
+      return fresh || offlineFallbackPage();
+    })());
     return;
   }
 
