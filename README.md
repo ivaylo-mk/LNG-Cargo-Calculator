@@ -7,7 +7,7 @@
 <p align="center">
   <a href="https://lng.ivaylokrastev.com"><img src="https://img.shields.io/badge/PWA-Ready-blue" alt="PWA" /></a>
   <a href="https://lng.ivaylokrastev.com"><img src="https://img.shields.io/badge/Offline-Ready-blue" alt="Offline" /></a>
-  <a href="https://lng.ivaylokrastev.com"><img src="https://img.shields.io/badge/Version-2.5.3-blue" alt="Version" /></a>
+  <a href="https://lng.ivaylokrastev.com"><img src="https://img.shields.io/badge/Version-2.5.4-blue" alt="Version" /></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/License-AGPL--3.0-blue" alt="License" /></a>
 </p>
 
@@ -183,6 +183,10 @@ The Methane Number calculation (introduced in v2.3.0) embeds a JavaScript implem
 ---
 
 ## Changelog
+
+### Version 2.5.4
+- **Consistent real-gas basis across all gas-state results.** Total Gas Volume Equivalent and LNG-to-Gas Expansion Ratio previously used the ideal-gas molar volume, while GHV Volumetric and Wobbe Index used real gas — so multiplying the displayed volumetric GHV by the displayed gas volume overstated total energy by a factor of 1/Zmix (~0.2%). Both now apply the mixture compression factor, so all four figures share one real-gas basis and GHV × gas volume equals total energy exactly. In-app documentation (Step 9) updated to match.
+- Minor fixes and optimizations.
 
 ### Version 2.5.3
 - App startup optimizations.

@@ -55,7 +55,21 @@
 <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="icons/icon-16.png">
 <meta name="description" content="Offline LNG Cargo Properties Calculator. Based on ISO 6578:2017, ISO 6976:2016, and GPA Midstream 2145-16.">
-<meta name="apple-mobile-web-app-capable" content="yes">
+<!-- Link preview (Open Graph) — absolute URLs required: social scrapers do not resolve relative paths -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LNG Cargo Properties Calculator">
+<meta property="og:title" content="LNG Cargo Properties Calculator">
+<meta property="og:description" content="Offline LNG Cargo Properties Calculator. Based on ISO 6578:2017, ISO 6976:2016, and GPA Midstream 2145-16.">
+<meta property="og:url" content="https://lng.ivaylokrastev.com/">
+<meta property="og:image" content="https://lng.ivaylokrastev.com/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LNG Cargo Properties Calculator — Mass, Energy, Quality, Volume, Gas State result cards">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="LNG Cargo Properties Calculator">
+<meta name="twitter:description" content="Offline LNG Cargo Properties Calculator. Based on ISO 6578:2017, ISO 6976:2016, and GPA Midstream 2145-16.">
+<meta name="twitter:image" content="https://lng.ivaylokrastev.com/og-image.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#070d1a">
 <meta name="author" content="Ivaylo Krastev">
@@ -663,10 +677,10 @@ Combustion &amp; metering reference fixed at <strong style="color:var(--tx)">60 
 <h4 id="sec-step-9">Step 9 — Gas Volume Equivalent &amp; Expansion Ratio</h4>
 <p>When regasified, one cubic metre of LNG produces several hundred cubic metres of natural gas at atmospheric conditions. Two related figures capture this:</p>
 <p>The <strong>total gas volume equivalent</strong> is the quantity of gas the entire cargo yields when fully regasified to the metering reference conditions:</p>
-<p><code>V_gas = (m / Mmix) · V_m</code></p>
-<p>where <code>m</code> is cargo mass (kg), <code>Mmix</code> is the mixture molar mass (kg/kmol), and <code>V_m</code> = R·T/P is the ideal-gas molar volume at the metering reference (m³/kmol). The result is expressed in m³ at the selected reference (Sm³ at 15 °C, Nm³ at 0 °C, or SCF at 60 °F in GPA mode).</p>
+<p><code>V_gas = (m / Mmix) · Zmix · V_m</code></p>
+<p>where <code>m</code> is cargo mass (kg), <code>Mmix</code> is the mixture molar mass (kg/kmol), <code>V_m</code> = R·T/P is the ideal-gas molar volume at the metering reference (m³/kmol), and <code>Zmix</code> is the mixture compression factor — the same real-gas correction used for the volumetric GHV (Step 8), so the gas volume, volumetric GHV, Wobbe Index, and total energy all share one consistent real-gas basis. The result is expressed in m³ at the selected reference (Sm³ at 15 °C, Nm³ at 0 °C, or SCF at 60 °F in GPA mode).</p>
 <p>The <strong>LNG-to-gas expansion ratio</strong> is the dimensionless multiplier between liquid and gas volume:</p>
-<p><code>Expansion = V_gas / V_liquid = (ρ / Mmix) · V_m</code></p>
+<p><code>Expansion = V_gas / V_liquid = (ρ / Mmix) · Zmix · V_m</code></p>
 <p>For typical LNG, the expansion ratio falls in the range 590–615, reflecting the ~600× volume increase from liquid to gaseous state at atmospheric pressure. The ratio depends on both the LNG density (which depends on composition and temperature) and the molar mass of the mixture. Leaner cargoes (high methane, low heavies) yield slightly higher expansion ratios because their lower molar mass produces more moles per unit mass.</p>
 
 <h4 id="sec-step-10">Step 10 — Equilibrium Vapor Pressure &amp; Boiling Point</h4>
@@ -874,7 +888,7 @@ Combustion &amp; metering reference fixed at <strong style="color:var(--tx)">60 
 <div class="footer-copy" id="f-copy">© 2026 Ivaylo Krastev · Licensed under AGPL-3.0</div>
 <div style="font-size:var(--fs-xs);margin-bottom:6px"><a id="f-site" href="https://ivaylokrastev.com" target="_blank" rel="noopener" style="color:var(--tx);text-decoration:none;display:inline-flex;align-items:center;gap:6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>ivaylokrastev.com</a><span style="opacity:0.4;margin:0 8px">&middot;</span><a id="f-repo" href="https://github.com/ivaylo-mk/lng-cargo-calculator" target="_blank" rel="noopener" style="color:var(--tx);text-decoration:none;display:inline-flex;align-items:center;gap:6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.01-.02-1.97-3.2.69-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18.92-.26 1.91-.39 2.89-.39.98 0 1.97.13 2.89.39 2.21-1.49 3.18-1.18 3.18-1.18.62 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25 5.68.41.35.78 1.04.78 2.1 0 1.51-.01 2.73-.01 3.1 0 .31.21.68.8.56C20.71 21.39 24 17.08 24 12c0-6.35-5.15-11.5-11.5-11.5z"/></svg>Source Code</a></div>
 <div style="font-size:var(--fs-xs);color:var(--tm);margin-top:4px;opacity:0.6">Calculations provided for reference purposes only.</div>
-<div style="font-size:var(--fs-xs);color:var(--tm);margin-top:10px;opacity:0.6">Version 2.5.3</div>
+<div style="font-size:var(--fs-xs);color:var(--tm);margin-top:10px;opacity:0.6">Version 2.5.4</div>
 </footer>
 
 <!-- ════════════ CARGO LIBRARY ════════════
@@ -2014,10 +2028,13 @@ function calc(temp,vol,pct,ck,mk,std){
   var W_BtuSCF=Hv_real_BtuSCF/Math.sqrt(G_real);
   var Wi_BtuSCF=Hv_ideal_BtuSCF/Math.sqrt(G_ideal);
   /* Gas volume equivalent, LNG-to-gas expansion ratio, and energy density.
-     n_total (kmol) = mass/Mm → gas volume at reference = n · Vm_m (m³).
-     Expansion = V_gas / V_liquid = ρ·Vm_m/Mm (dimensionless).
+     n_total (kmol) = mass/Mm → gas volume at reference = n · Zmix · Vm_m (m³).
+     REAL-GAS basis (v2.5.4): the Zmix factor corrects ideal molar volume to
+     real molar volume at the metering reference, so this card shares the same
+     basis as GHV volumetric and Wobbe — GHV_vol × gasVol = total energy exactly.
+     Expansion = V_gas / V_liquid = ρ·Zmix·Vm_m/Mm (dimensionless).
      For GPA mode, additional SCF conversion: 1 m³ = 35.31467 ft³. */
-  var gasVol_m3=(Mm>0)?(mass/Mm)*Vm_m*1000:0;/* mass/Mm gives kmol, ×Vm_m (m³/mol) needs ×1000 */
+  var gasVol_m3=(Mm>0)?(mass/Mm)*Zmix*Vm_m*1000:0;/* mass/Mm gives kmol, ×Vm_m (m³/mol) needs ×1000 */
   var gasVol_SCF=gasVol_m3*35.31467;
   var expRatio=(Mm>0&&vol>0)?gasVol_m3/vol:0;
   var MMBTU_per_tonne=(mass>0)?EM/(mass/1000):0;
