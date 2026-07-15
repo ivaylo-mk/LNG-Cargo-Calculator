@@ -165,6 +165,24 @@ details.panel .pb{padding:0 clamp(14px,3vw,20px) clamp(14px,2vw,20px)}
 #mn-panel .mn-help:hover{background:rgba(59,130,246,0.2);color:var(--ac);border-color:var(--ac)}
 #mn-panel .mn-error-box{background:rgba(251,146,60,0.08);border:1px solid rgba(251,146,60,0.3);border-radius:8px;padding:14px 16px;margin-bottom:18px;font-size:var(--fs-sm);color:var(--tm);line-height:1.55}
 #mn-panel h4{font-size:var(--fs-md);font-weight:600;margin:18px 0 8px 0;color:var(--tx);letter-spacing:0.01em}
+.foe-intro{font-size:var(--fs-sm);color:var(--tm);line-height:1.55;margin:0 0 14px 0}
+#foe-panel .foe-controls{margin:16px 0 16px 0;display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px}
+#foe-panel .foe-lcv-group{display:flex;align-items:flex-end;gap:14px;margin-left:auto}
+#foe-panel .foe-field{display:flex;flex-direction:column;gap:6px}
+#foe-panel .foe-field-label{font-size:var(--fs-xs);font-weight:600;color:var(--tm);letter-spacing:0.02em}
+#foe-panel .foe-field input{width:110px;box-sizing:border-box;height:36px;background:rgba(3,7,18,0.5);border:1px solid var(--bd);border-radius:8px;color:var(--tx);padding:0 10px;font-family:inherit;font-size:var(--fs-xs);font-weight:600}
+#foe-panel .foe-field .cond-toggle-set{display:flex;box-sizing:border-box;height:36px;align-items:center}
+#foe-panel .foe-hero-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:12px}
+#foe-panel .foe-hero{flex:1;min-width:180px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:8px;background:rgba(3,7,18,0.35);border:1px solid var(--bd);border-radius:10px;padding:clamp(14px,2.5vw,20px)}
+#foe-panel .foe-hero-label{font-size:var(--fs-xs);font-weight:700;color:var(--tm);letter-spacing:0.08em;text-transform:uppercase}
+#foe-panel .foe-hero-value{font-size:clamp(1.7rem,5vw,2.6rem);font-weight:700;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-0.02em}
+#foe-panel .foe-hero-unit{font-size:var(--fs-xs);color:var(--tm);letter-spacing:0.04em;text-align:center}
+#foe-panel .foe-note{font-size:var(--fs-xs);color:var(--tm);line-height:1.55;margin-top:8px}
+#foe-panel .foe-cons{margin-top:16px;padding-top:14px;border-top:1px solid var(--bd)}
+#foe-panel .foe-cons-title{display:block;font-size:var(--fs-xs);font-weight:600;color:var(--tx);letter-spacing:0.02em;margin-bottom:10px}
+#foe-panel .foe-cons-row{display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px}
+#foe-panel .foe-cons-plus{font-size:var(--fs-md);font-weight:700;color:var(--tm);line-height:36px}
+@media(max-width:640px){#foe-panel .foe-lcv-group{flex-basis:100%;margin-left:0}}
 #mn-panel p{font-size:var(--fs-sm);color:var(--tm);line-height:1.6;margin:0 0 12px 0}
 /* MN tables use a horizontally scrollable wrapper (.mn-table-wrap) so the tables
    keep their natural layout on every screen size. If the table is wider than
@@ -398,6 +416,7 @@ footer{text-align:center;padding:clamp(16px,3vw,24px) var(--pad);font-size:var(-
   #detail-section{page-break-before:always;break-before:page}
   #evp-curve-panel{page-break-before:always;break-before:page}
   #mn-panel{page-break-before:always;break-before:page}
+  #foe-panel{page-break-before:always;break-before:page}
   #cond-panel{page-break-before:always;break-before:page}
   /* Print styling for the Methane Number panel — adapt dark UI to white paper. */
   #mn-panel .mn-hero{background:#fff !important;border:1px solid #888 !important;padding:8mm !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -439,7 +458,7 @@ footer{text-align:center;padding:clamp(16px,3vw,24px) var(--pad);font-size:var(-
   #evp-chart-wrap .evp-current-label{fill:#000 !important;font-weight:700 !important}
   .evp-curve-intro{color:#444 !important;font-size:9pt !important;margin-bottom:8pt !important}
   /* Print styling for Cargo Conditioning panel — adapt dual-axis SVG and toggles to paper. */
-  #cond-panel .cond-chart-help,#cond-panel .cond-controls,#evp-curve-panel .evp-controls,.h-lib-btn,#lib-modal,#lib-confirm-modal,#lib-save-modal,#lib-toast{display:none !important}
+  #cond-panel .cond-chart-help,#cond-panel .cond-controls,#evp-curve-panel .evp-controls,#foe-panel .foe-controls,#foe-panel .foe-cons,.h-lib-btn,#lib-modal,#lib-confirm-modal,#lib-save-modal,#lib-toast{display:none !important}
   #cond-panel .cond-intro{color:#444 !important;font-size:9pt !important;margin-bottom:8pt !important}
   #cond-chart-wrap{background:#fff !important;border:1px solid #999 !important;padding:8mm !important;max-width:100% !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   #cond-chart-wrap svg{font-family:inherit !important}
@@ -541,6 +560,46 @@ Combustion &amp; metering reference fixed at <strong style="color:var(--tx)">60 
 
 <details class="panel" id="mn-panel" open><summary>Methane Number</summary><div class="pb">
 <div id="mn-body"></div>
+</div></details>
+
+<details class="panel" id="foe-panel" open><summary>Fuel Oil Equivalent (FOE)</summary><div class="pb">
+<p class="foe-intro">Expresses the cargo as the mass of a conventional marine fuel with the same usable (net) energy content, for fuel-consumption comparisons. FOE Factor = Gas LCV ÷ reference fuel LCV. All calorific values are editable and persist on this device; defaults are the IMO DCS/CII reference values (MGO 42.7, HFO 40.2, LNG 48.0 MJ/kg) and the IEA tonne of oil equivalent (41.868 MJ/kg). Adjust to your company’s or charter party’s figures as required.</p>
+<div class="foe-controls">
+<div class="foe-field">
+<span class="foe-field-label">Reference Fuel</span>
+<div class="cond-toggle-set cond-left" id="foe-tg-fuel">
+<button data-fuel="mgo" class="active">MGO</button>
+<button data-fuel="hfo">HFO</button>
+<button data-fuel="toe">TOE</button>
+</div>
+</div>
+<div class="foe-lcv-group">
+<div class="foe-field">
+<span class="foe-field-label">Fuel LCV (MJ/kg)</span>
+<input type="number" id="foe-ref" step="0.001" min="1" max="60">
+</div>
+<div class="foe-field">
+<span class="foe-field-label">Gas LCV (MJ/kg)</span>
+<input type="number" id="foe-gas" step="0.001" min="1" max="60">
+</div>
+</div>
+</div>
+<div id="foe-body"></div>
+<div class="foe-cons">
+<span class="foe-cons-title">Daily Consumption Quick-Calculation</span>
+<div class="foe-cons-row">
+<div class="foe-field">
+<span class="foe-field-label">LNG (m³/day)</span>
+<input type="number" id="foe-cons-lng" step="0.1" min="0" placeholder="0">
+</div>
+<span class="foe-cons-plus">+</span>
+<div class="foe-field">
+<span class="foe-field-label">Fuel Oil (t/day)</span>
+<input type="number" id="foe-cons-fuel" step="0.1" min="0" placeholder="0">
+</div>
+</div>
+<div id="foe-cons-out" class="foe-note"></div>
+</div>
 </div></details>
 
 <details class="panel" id="cond-panel" open><summary>Cargo Conditioning</summary><div class="pb">
@@ -864,7 +923,7 @@ Combustion &amp; metering reference fixed at <strong style="color:var(--tx)">60 
 <div class="footer-copy" id="f-copy">© 2026 Ivaylo Krastev · Licensed under AGPL-3.0</div>
 <div style="font-size:var(--fs-xs);margin-bottom:6px"><a id="f-site" href="https://ivaylokrastev.com" target="_blank" rel="noopener" style="color:var(--tx);text-decoration:none;display:inline-flex;align-items:center;gap:6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>ivaylokrastev.com</a><span style="opacity:0.4;margin:0 8px">&middot;</span><a id="f-repo" href="https://github.com/ivaylo-mk/lng-cargo-calculator" target="_blank" rel="noopener" style="color:var(--tx);text-decoration:none;display:inline-flex;align-items:center;gap:6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.01-.02-1.97-3.2.69-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18.92-.26 1.91-.39 2.89-.39.98 0 1.97.13 2.89.39 2.21-1.49 3.18-1.18 3.18-1.18.62 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25 5.68.41.35.78 1.04.78 2.1 0 1.51-.01 2.73-.01 3.1 0 .31.21.68.8.56C20.71 21.39 24 17.08 24 12c0-6.35-5.15-11.5-11.5-11.5z"/></svg>Source Code</a></div>
 <div style="font-size:var(--fs-xs);color:var(--tm);margin-top:4px;opacity:0.6">Calculations provided for reference purposes only.</div>
-<div style="font-size:var(--fs-xs);color:var(--tm);margin-top:10px;opacity:0.6">Version 2.5.4</div>
+<div style="font-size:var(--fs-xs);color:var(--tm);margin-top:10px;opacity:0.6">Version 2.6.0</div>
 </footer>
 
 <!-- ════════════ CARGO LIBRARY ════════════
@@ -927,6 +986,7 @@ Combustion &amp; metering reference fixed at <strong style="color:var(--tx)">60 
       <p id="lib-confirm-message" class="lib-confirm-text"></p>
       <div class="lib-actions">
         <button id="lib-confirm-cancel" class="lib-action-cancel">Cancel</button>
+        <button id="lib-confirm-alt" class="lib-action-confirm" style="display:none"></button>
         <button id="lib-confirm-ok" class="lib-action-confirm">Confirm</button>
       </div>
     </div>
@@ -2094,11 +2154,11 @@ function render(){
   var r=calc(inp.t,inp.v,inp.p,inp.cr,inp.mr,inp.std);
   if(r&&r.error){
     $("results-area").innerHTML='<div class="err-box"><h3>\u26D4 Error \u2014 Calculation Engine Modified</h3><p>Integrity verification failed. The calculation engine has been modified and cannot produce reliable results.</p><p style="margin-top:12px;font-size:0.72rem;opacity:0.6">All calibration constants, attribution, and engine code must remain unmodified.</p></div>';
-    $("detail-section").classList.add("hidden");var ep=$("evp-curve-panel");if(ep)ep.classList.add("hidden");var mp=$("mn-panel");if(mp)mp.classList.add("hidden");var cp=$("cond-panel");if(cp)cp.classList.add("hidden");var ft=$("app-footer");if(ft)ft.style.display="none";var fb=$("f-brand");if(fb)fb.style.display="none";return;
+    $("detail-section").classList.add("hidden");var ep=$("evp-curve-panel");if(ep)ep.classList.add("hidden");var mp=$("mn-panel");if(mp)mp.classList.add("hidden");var cp=$("cond-panel");if(cp)cp.classList.add("hidden");var fp=$("foe-panel");if(fp)fp.classList.add("hidden");var ft=$("app-footer");if(ft)ft.style.display="none";var fb=$("f-brand");if(fb)fb.style.display="none";return;
   }
   var ft=$("app-footer");if(ft)ft.style.display="";var fb=$("f-brand");if(fb)fb.style.display="";
-  $("detail-section").classList.remove("hidden");var ep=$("evp-curve-panel");if(ep)ep.classList.remove("hidden");var mp=$("mn-panel");if(mp)mp.classList.remove("hidden");var cp=$("cond-panel");if(cp)cp.classList.remove("hidden");
-  if(!r){$("results-area").innerHTML='<div class="r-grid"></div>';$("detail-body").innerHTML="";var ec=$("evp-chart-wrap");if(ec)ec.innerHTML="";var mb=$("mn-body");if(mb)mb.innerHTML="";var cb=$("cond-body");if(cb)cb.innerHTML="";if(_mnTimer){clearTimeout(_mnTimer);_mnTimer=null}_mnLastR=null;return}
+  $("detail-section").classList.remove("hidden");var ep=$("evp-curve-panel");if(ep)ep.classList.remove("hidden");var mp=$("mn-panel");if(mp)mp.classList.remove("hidden");var cp=$("cond-panel");if(cp)cp.classList.remove("hidden");var fp=$("foe-panel");if(fp)fp.classList.remove("hidden");
+  if(!r){$("results-area").innerHTML='<div class="r-grid"></div>';$("detail-body").innerHTML="";var ec=$("evp-chart-wrap");if(ec)ec.innerHTML="";var mb=$("mn-body");if(mb)mb.innerHTML="";var cb=$("cond-body");if(cb)cb.innerHTML="";var fby=$("foe-body");if(fby)fby.innerHTML="";if(_mnTimer){clearTimeout(_mnTimer);_mnTimer=null}_mnLastR=null;return}
   r.tOK?$("warn-temp").classList.add("hidden"):$("warn-temp").classList.remove("hidden");
   /* Unified 12-card set for both standards. Unit labels and subtitles
      adapt to the selected standard so the cards remain informative in both. */
@@ -2132,6 +2192,7 @@ function render(){
   renderEvpChart(r);
   scheduleMN(r);
   renderConditioning(r);
+  renderFOE(r);
 }
 
 function renderDetail(r){
@@ -2340,6 +2401,100 @@ var _mnTimer=null, _mnLastR=null;
 var _evpUnit="mbar";
 /* Cargo Conditioning: current toggle selections (defaults: volume on the left axis, mbar gauge on the right). */
 var _condLeftUnit="volume",_condRightUnit="mbar";
+/* ────── Fuel Oil Equivalent (FOE) (v2.6.0) ──────
+   Expresses the cargo as tonnes of a reference fuel with the same usable
+   (net) energy content, as used for fuel-consumption comparisons:
+     FOE Factor (volume) = ρ(t/m³) × mass factor      (t fuel per m³ LNG)
+     FOE Factor (mass)   = Gas LCV ÷ fuel LCV          (t fuel per t LNG)
+     Cargo FOE tonnes    = cargo mass (t) × mass factor
+   The volume factor is shown first — daily consumptions are read from tank
+   soundings in m³ — and uses the cargo density at observed temperature, so
+   it reflects the actual cargo rather than a fixed table value. Built-in
+   defaults are the IMO DCS/CII reference lower calorific values (MGO 42.7,
+   HFO 40.2, LNG 48.0 MJ/kg) and the IEA tonne of oil equivalent (exactly
+   41.868 MJ/kg). Every value is editable — companies and charter parties
+   adopt their own figures — and the chosen values persist on this device
+   via localStorage. They are deliberately NOT stored in cargo saves or
+   exports: reference LCVs are a company convention, not cargo data.
+   The daily consumption quick-calculation converts an LNG consumption in
+   m³/day (tank soundings) to t/day and t FOE/day, optionally adding a
+   fuel-oil consumption for dual-fuel operation. It is plain unit
+   arithmetic — it does not model engine modes, pilot-fuel ratios, or
+   boil-off rates. */
+var FOE_FUELS={
+  mgo:{label:"MGO",name:"Marine Gas Oil",lcv:42.7},
+  hfo:{label:"HFO",name:"Heavy Fuel Oil",lcv:40.2},
+  toe:{label:"TOE",name:"Tonne of Oil Equivalent",lcv:41.868}
+};
+var FOE_GAS_DEFAULT=48.0,FOE_KEY="lng_foe_prefs_v1";
+var _foeFuel="mgo",_foeRef=FOE_FUELS.mgo.lcv,_foeGas=FOE_GAS_DEFAULT;
+var _foeConsLng=NaN,_foeConsFuel=NaN; /* voyage-specific; intentionally not persisted */
+function loadFoePrefs(){
+  try{
+    var raw=localStorage.getItem(FOE_KEY);if(!raw)return;
+    var p=JSON.parse(raw);if(!p||typeof p!=="object")return;
+    if(FOE_FUELS[p.fuel])_foeFuel=p.fuel;
+    var rf=parseFloat(p.ref);if(isFinite(rf)&&rf>0)_foeRef=rf;
+    var g=parseFloat(p.gas);if(isFinite(g)&&g>0)_foeGas=g;
+  }catch(e){}
+}
+function saveFoePrefs(){
+  try{localStorage.setItem(FOE_KEY,JSON.stringify({fuel:_foeFuel,ref:_foeRef,gas:_foeGas}))}catch(e){}
+}
+function renderFOE(r){
+  var wrap=$("foe-body");if(!wrap)return;
+  var refIn=$("foe-ref"),gasIn=$("foe-gas");
+  if(refIn&&document.activeElement!==refIn)refIn.value=_foeRef;
+  if(gasIn&&document.activeElement!==gasIn)gasIn.value=_foeGas;
+  var consOut=$("foe-cons-out");
+  if(!isFinite(_foeRef)||_foeRef<=0||!isFinite(_foeGas)||_foeGas<=0){
+    wrap.innerHTML='<div class="foe-note">Enter valid calorific values in MJ/kg.</div>';
+    if(consOut)consOut.textContent="";
+    return;
+  }
+  var fuel=FOE_FUELS[_foeFuel];
+  var isToe=(_foeFuel==="toe");
+  /* TOE is itself a tonne-based unit, so "t TOE" would be redundant;
+     conventional notation is plain "toe". */
+  var uName=isToe?"toe":("t "+fuel.label);
+  var isCustom=Math.abs(_foeRef-fuel.lcv)>1e-9;
+  var factor=_foeGas/_foeRef;                 /* t fuel per t LNG */
+  var rho_t=r.rho/1000;                       /* kg/m³ → t/m³ */
+  var volFactor=rho_t*factor;                 /* t fuel per m³ LNG */
+  var mass_t=r.mass/1000;
+  var foe_t=mass_t*factor;
+  wrap.innerHTML=
+    '<div class="foe-hero-row">'+
+    '<div class="foe-hero"><div class="foe-hero-label">FOE Factor</div>'+
+    '<div class="foe-hero-value">'+fmt(volFactor,4)+'</div>'+
+    '<div class="foe-hero-unit">'+esc(uName)+' per m³ LNG</div></div>'+
+    '<div class="foe-hero"><div class="foe-hero-label">FOE Factor</div>'+
+    '<div class="foe-hero-value">'+fmt(factor,4)+'</div>'+
+    '<div class="foe-hero-unit">'+esc(uName)+' per t LNG</div></div>'+
+    '<div class="foe-hero"><div class="foe-hero-label">Cargo Total</div>'+
+    '<div class="foe-hero-value">'+fmt(foe_t,0)+'</div>'+
+    '<div class="foe-hero-unit">'+esc(isToe?"toe":("tonnes "+fuel.label))+'</div></div>'+
+    '</div>'+
+    '<div class="foe-note">Volume factor uses cargo density '+fmt(r.rho,1)+' kg/m³ at observed temperature.'+
+    ' • 1 '+esc(isToe?"toe":("t "+fuel.label))+' ≈ '+fmt(volFactor>0?1/volFactor:0,3)+' m³ LNG'+
+    (isCustom?' • custom fuel LCV '+fmt(_foeRef,3)+' MJ/kg in use':'')+'</div>';
+  /* Daily consumption quick-calculation */
+  if(consOut){
+    var hasLng=isFinite(_foeConsLng)&&_foeConsLng>0;
+    var hasFuel=isFinite(_foeConsFuel)&&_foeConsFuel>0;
+    if(!hasLng&&!hasFuel){
+      consOut.textContent="Enter an LNG consumption in m³/day (from tank soundings), optionally plus a fuel-oil consumption, to get the daily FOE total.";
+    }else{
+      var lng_t=hasLng?_foeConsLng*rho_t:0;
+      var lng_foe=lng_t*factor;
+      var total=lng_foe+(hasFuel?_foeConsFuel:0);
+      var parts=[];
+      if(hasLng)parts.push(fmt(_foeConsLng,1)+" m³/day LNG = "+fmt(lng_t,1)+" t/day = "+fmt(lng_foe,1)+" t FOE/day");
+      if(hasFuel)parts.push(fmt(_foeConsFuel,1)+" t/day fuel oil");
+      consOut.textContent=parts.join(" + ")+" → total "+fmt(total,1)+" t FOE/day ("+esc(fuel.label)+" basis)";
+    }
+  }
+}
 function scheduleMN(r){
   _mnLastR=r;
   /* Show "calculating" placeholder immediately (only on first compute or
@@ -2605,14 +2760,14 @@ function renderConditioning(r){
 function scrollToRef(id){var el=document.getElementById(id);if(!el)return;var d=el.closest("details");if(d)d.open=true;setTimeout(function(){el.scrollIntoView({behavior:"smooth",block:"start"})},150)}
 
 /* ────── Cargo Library (v2.5.0) ──────
-   Save/load named cargo configurations to localStorage. Holds up to 10 user
+   Save/load named cargo configurations to localStorage. Holds up to 50 user
    cargoes plus two pinned-at-top specials: Example Cargo (the original app
    defaults) and Last Session (auto-updated on every input change, 500 ms
    debounced). Loading a named cargo does NOT overwrite Last Session.
    Fails gracefully if localStorage is unavailable. */
 var LIB=(function(){
   var KEY="lng_cargo_library_v1";
-  var MAX_USER=10, NAME_MAX=30;
+  var MAX_USER=50, NAME_MAX=30;
   var RESERVED=["Last Session","Example Cargo"];
   var _lastSessionTimer=null;
 
@@ -2906,6 +3061,28 @@ var LIB=(function(){
       saveLib(lib);
       this.renderList();
       toast("Imported "+cargoes.length+" "+(cargoes.length===1?"cargo":"cargoes"));
+    },
+    /* Merge imported cargoes into the existing library instead of replacing
+       it. Matching is by cargo name (case-insensitive): an imported cargo
+       whose name matches a stored one overwrites it; new names are appended
+       until the library limit is reached. Lets a large cargo set be
+       accumulated gradually across several PCs without losing entries. */
+    mergeLibrary:function(cargoes){
+      var lib=loadLib();
+      var byName={};
+      for(var i=0;i<lib.cargoes.length;i++)byName[lib.cargoes[i].name.toLowerCase()]=i;
+      var added=0,updated=0,skipped=0;
+      for(var j=0;j<cargoes.length;j++){
+        var c=cargoes[j],k=c.name.toLowerCase();
+        if(Object.prototype.hasOwnProperty.call(byName,k)){lib.cargoes[byName[k]]=c;updated++}
+        else if(lib.cargoes.length<MAX_USER){byName[k]=lib.cargoes.length;lib.cargoes.push(c);added++}
+        else skipped++;
+      }
+      saveLib(lib);
+      this.renderList();
+      var msg="Merged: "+added+" added, "+updated+" updated";
+      if(skipped)msg+=", "+skipped+" skipped (library limit "+MAX_USER+")";
+      toast(msg);
     }
   };
 })();
@@ -2929,6 +3106,23 @@ function libConfirm(message,onConfirm,opts){
   var okBtn=$("lib-confirm-ok");
   okBtn.textContent=opts.confirmText||"Confirm";
   okBtn.classList.toggle("lib-action-danger",!!opts.danger);
+  /* Optional second action (e.g. Merge alongside Replace All). Clone-replace
+     to clear stacked listeners, mirroring the OK-button pattern below. */
+  var altBtn=$("lib-confirm-alt");
+  if(altBtn){
+    var newAlt=altBtn.cloneNode(true);
+    altBtn.parentNode.replaceChild(newAlt,altBtn);
+    if(opts.altText){
+      newAlt.textContent=opts.altText;
+      newAlt.style.display="";
+      newAlt.addEventListener("click",function(){
+        $("lib-confirm-modal").classList.remove("lib-open");
+        if(opts.onAlt)opts.onAlt();
+      });
+    }else{
+      newAlt.style.display="none";
+    }
+  }
   $("lib-confirm-modal").classList.add("lib-open");
   /* Replace the listener so we don't stack handlers on repeated calls. */
   var newOk=okBtn.cloneNode(true);
@@ -2990,6 +3184,49 @@ function init(){
         });
       })(evpBtns[ei]);
     }
+  }
+
+  /* FOE: restore persisted preferences, then wire fuel toggle, the two
+     editable LCV fields, and the (non-persisted) consumption quick-calc. */
+  loadFoePrefs();
+  var foeTg=$("foe-tg-fuel");
+  if(foeTg){
+    var foeBtns=foeTg.querySelectorAll("button");
+    for(var fi=0;fi<foeBtns.length;fi++){
+      (function(btn){
+        btn.classList.toggle("active",btn.getAttribute("data-fuel")===_foeFuel);
+        btn.addEventListener("click",function(){
+          _foeFuel=btn.getAttribute("data-fuel");
+          _foeRef=FOE_FUELS[_foeFuel].lcv;
+          var ri=$("foe-ref");if(ri)ri.value=_foeRef;
+          for(var k=0;k<foeBtns.length;k++)foeBtns[k].classList.remove("active");
+          btn.classList.add("active");
+          saveFoePrefs();
+          render();
+        });
+      })(foeBtns[fi]);
+    }
+    var foeRefIn=$("foe-ref");
+    if(foeRefIn){
+      foeRefIn.value=_foeRef;
+      foeRefIn.addEventListener("input",function(){
+        var v=parseFloat(this.value);
+        if(isFinite(v)&&v>0){_foeRef=v;saveFoePrefs();render()}
+      });
+      foeRefIn.addEventListener("blur",function(){this.value=_foeRef});
+    }
+    var foeGasIn=$("foe-gas");
+    if(foeGasIn){
+      foeGasIn.value=_foeGas;
+      foeGasIn.addEventListener("input",function(){
+        var v=parseFloat(this.value);
+        if(isFinite(v)&&v>0){_foeGas=v;saveFoePrefs();render()}
+      });
+      foeGasIn.addEventListener("blur",function(){this.value=_foeGas});
+    }
+    var consLngIn=$("foe-cons-lng"),consFuelIn=$("foe-cons-fuel");
+    if(consLngIn)consLngIn.addEventListener("input",function(){_foeConsLng=parseFloat(this.value);render()});
+    if(consFuelIn)consFuelIn.addEventListener("input",function(){_foeConsFuel=parseFloat(this.value);render()});
   }
 
   /* ────── Cargo Library wiring ──────
@@ -3092,11 +3329,12 @@ function init(){
       var doImport=function(){LIB.importLibrary(r.cargoes)};
       if(currentCount>0){
         libConfirm(
-          "Import will replace your current "+currentCount+" saved "+
-          (currentCount===1?"cargo":"cargoes")+" with "+r.cargoes.length+" "+
-          (r.cargoes.length===1?"cargo":"cargoes")+" from the file. This cannot be undone.",
+          "Import "+r.cargoes.length+" "+(r.cargoes.length===1?"cargo":"cargoes")+
+          " from the file. \u201CReplace All\u201D deletes your current "+currentCount+" saved "+
+          (currentCount===1?"cargo":"cargoes")+" first (cannot be undone). \u201CMerge\u201D keeps them: "+
+          "imported cargoes with a matching name overwrite the stored version, new names are added.",
           doImport,
-          {confirmText:"Replace",danger:true}
+          {confirmText:"Replace All",danger:true,altText:"Merge",onAlt:function(){LIB.mergeLibrary(r.cargoes)}}
         );
       }else{
         doImport();
