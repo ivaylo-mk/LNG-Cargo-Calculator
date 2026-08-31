@@ -7,7 +7,7 @@
 <p align="center">
   <a href="https://lng.ivaylokrastev.com"><img src="https://img.shields.io/badge/PWA-Ready-blue" alt="PWA" /></a>
   <a href="https://lng.ivaylokrastev.com"><img src="https://img.shields.io/badge/Offline-Ready-blue" alt="Offline" /></a>
-  <a href="https://lng.ivaylokrastev.com"><img src="https://img.shields.io/badge/Version-2.6.0-blue" alt="Version" /></a>
+  <a href="https://lng.ivaylokrastev.com"><img src="https://img.shields.io/badge/Version-2.6.1-blue" alt="Version" /></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/License-AGPL--3.0-blue" alt="License" /></a>
 </p>
 
@@ -184,6 +184,10 @@ The Methane Number calculation (introduced in v2.3.0) embeds a JavaScript implem
 ---
 
 ## Changelog
+
+### Version 2.6.1
+- **Offline-readiness indicator.** The footer now reports whether the app is actually cached for offline use ("Offline ready · 8 of 8 files cached"), with a coloured dot and a tap-to-recheck action. A failed or missing service worker installation is now visible immediately rather than being discovered at sea with no connection.
+- Corrected the Formula Reference quick-list, which still showed the pre-2.5.4 ideal-gas forms of the gas volume equivalent and expansion ratio (`V_gas = (m/Mmix)·V_m`) while Step 9 above it correctly included the compression factor. Both now show the real-gas form with Zmix.
 
 ### Version 2.6.0
 - **Fuel Oil Equivalent (FOE) panel.** New section below Methane Number expressing the cargo as tonnes of a reference fuel with the same usable (net) energy content, for fuel-consumption comparisons: FOE Factor = Gas LCV ÷ fuel LCV, FOE tonnes = cargo mass × factor. Reference fuels HFO, MGO, and TOE with a freely editable fuel LCV and an editable Gas LCV (defaults per IMO DCS/CII: HFO 40.2, MGO 42.7, LNG 48.0 MJ/kg; TOE 41.868 per IEA). Results show the mass factor (t fuel per t LNG), the volumetric factor (t fuel per m³ LNG, using the actual cargo density), and the cargo total in tonnes of the reference fuel, plus a daily consumption quick-calc converting LNG m³/day (and optionally a simultaneous fuel-oil consumption for dual-fuel operation) into a total t FOE/day. Selected fuel and calorific values persist on the device; they are intentionally not stored in cargo saves or exports, as reference LCVs are a company convention rather than cargo data.

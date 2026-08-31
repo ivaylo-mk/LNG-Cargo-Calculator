@@ -1,5 +1,5 @@
 /*
- * Service Worker for LNG Cargo Properties Calculator PWA — v2.6.0
+ * Service Worker for LNG Cargo Properties Calculator PWA — v2.6.1
  *
  * Strategy:
  *   - Navigations (the app itself): STALE-WHILE-REVALIDATE. The cached app
@@ -26,7 +26,7 @@
  *   users pick up a new index.html by their second online launch even if
  *   the bump is forgotten.
  */
-const CACHE_NAME = 'lng-cargo-v2.6.0';
+const CACHE_NAME = 'lng-cargo-v2.6.1';
 
 /* Install fails (and retries next visit) if these cannot be cached. */
 const CRITICAL_ASSETS = [
@@ -92,6 +92,34 @@ function backfillMissingAssets() {
     ))
   );
 }
+
+/*
+ * Cache-status responder. The page asks how much of the offline asset set is
+ * actually cached and shows the result in the footer, so a failed install is
+ * visible to the user rather than silent. Replies over the MessageChannel
+ * port the page supplies; falls back to the client itself.
+ */
+self.addEventListener('message', (event) => {
+  if (!event.data || event.data.type !== 'cache-status') return;
+  event.waitUntil((async () => {
+    const cache = await caches.open(CACHE_NAME);
+    const all = CRITICAL_ASSETS.concat(OPTIONAL_ASSETS);
+    const missing = [];
+    for (const url of all) {
+      const hit = await cache.match(url, { ignoreSearch: true });
+      if (!hit) missing.push(url);
+    }
+    const payload = {
+      type: 'cache-status',
+      version: CACHE_NAME,
+      total: all.length,
+      cached: all.length - missing.length,
+      missing: missing
+    };
+    if (event.ports && event.ports[0]) event.ports[0].postMessage(payload);
+    else if (event.source && event.source.postMessage) event.source.postMessage(payload);
+  })());
+});
 
 self.addEventListener('fetch', (event) => {
   const request = event.request;
