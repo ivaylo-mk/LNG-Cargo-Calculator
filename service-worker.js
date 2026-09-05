@@ -1,5 +1,5 @@
 /*
- * Service Worker for LNG Cargo Properties Calculator PWA — v2.6.2
+ * Service Worker for LNG Cargo Properties Calculator PWA — v2.6.3
  *
  * Strategy:
  *   - Navigations (the app itself): STALE-WHILE-REVALIDATE. The cached app
@@ -26,7 +26,7 @@
  *   users pick up a new index.html by their second online launch even if
  *   the bump is forgotten.
  */
-const CACHE_NAME = 'lng-cargo-v2.6.2';
+const CACHE_NAME = 'lng-cargo-v2.6.3';
 
 /* Install fails (and retries next visit) if these cannot be cached. */
 const CRITICAL_ASSETS = [

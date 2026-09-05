@@ -7,7 +7,7 @@
 <p align="center">
   <a href="https://lng.ivaylokrastev.com"><img src="https://img.shields.io/badge/PWA-Ready-blue" alt="PWA" /></a>
   <a href="https://lng.ivaylokrastev.com"><img src="https://img.shields.io/badge/Offline-Ready-blue" alt="Offline" /></a>
-  <a href="https://lng.ivaylokrastev.com"><img src="https://img.shields.io/badge/Version-2.6.2-blue" alt="Version" /></a>
+  <a href="https://lng.ivaylokrastev.com"><img src="https://img.shields.io/badge/Version-2.6.3-blue" alt="Version" /></a>
   <a href="./LICENSE"><img src="https://img.shields.io/badge/License-AGPL--3.0-blue" alt="License" /></a>
 </p>
 
@@ -184,6 +184,10 @@ The Methane Number calculation (introduced in v2.3.0) embeds a JavaScript implem
 ---
 
 ## Changelog
+
+### Version 2.6.3
+- Offline indicator no longer reports ready when the service worker is active but not controlling the page.
+- Automatic re-registration when the service worker is found missing while online.
 
 ### Version 2.6.2
 - Persistent storage requested, preventing automatic eviction of the offline cache.
