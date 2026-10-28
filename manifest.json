@@ -1,7 +1,7 @@
 {
   "name": "LNG Cargo Properties Calculator",
   "short_name": "LNG Cargo",
-  "description": "Offline LNG Cargo Properties Calculator. Based on ISO 6578:2017, ISO 6976:2016, and GPA Midstream 2145-16.",
+  "description": "LNG cargo mass, energy, quality, vapor pressure and fuel oil equivalent, based on ISO 6578:2017, ISO 6976:2016 and GPA Midstream 2145-16.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
